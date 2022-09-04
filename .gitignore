@@ -121,7 +121,7 @@ celerybeat.pid
 # Environments
 .env
 .venv
-prediction_manager/env/
+env/
 venv/
 ENV/
 env.bak/
