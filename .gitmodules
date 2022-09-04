@@ -1,0 +1,3 @@
+[submodule "dolores"]
+	path = dolores
+	url = https://github.com/MichaelTwito/dolores.git

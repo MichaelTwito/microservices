@@ -1,0 +1,32 @@
+syntax = "proto3";
+
+message IrisSpeciesPredictionRequest {
+    float SepalLengthCm = 1;
+    float SepalWidthCm = 2;
+    float PetalLengthCm = 3;
+    float PetalWidthCm = 4;
+    string PathToModel = 5;
+}
+
+message IrisSpeciesPredictionResponse {
+   string species = 1;
+}
+
+message CreateAndTrainModelRequest {
+    string dataset_path = 1;
+    int32 epochs = 2;
+    map<string, string> optimizer_params = 3;
+    string criterion = 4;
+    map<string, string> model_params = 5;
+    string save_model_at = 6;
+}
+
+message CreateAndTrainModelResponse{
+    float accuracy = 1;
+    string saved_model_path = 2;
+}
+
+service Predictions {
+    rpc IrisSpeciesPredict (IrisSpeciesPredictionRequest) returns (IrisSpeciesPredictionResponse);
+    rpc CreateAndTrainModel (CreateAndTrainModelRequest) returns (CreateAndTrainModelResponse);
+}
