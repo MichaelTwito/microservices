@@ -11,22 +11,21 @@ from predictions_pb2_grpc import PredictionsServicer,add_PredictionsServicer_to_
 class Predictions(PredictionsServicer):
     def CreateAndTrainModel(self, params, context):
         params = MessageToDict(params)
-        accuracy, saved_model_path = train_model(params['datasetPath'], params['epochs'],\
-                             params['optimizerParams'], params['criterion'],\
+        accuracy, saved_model_path = train_model(params['datasetParams'], params['trainParams'],\
+                             params['testParams'],params['optimizerParams'], params['criterion'],\
                              params['modelParams'], params['saveModelAt'])
         return CreateAndTrainModelResponse(accuracy=accuracy, saved_model_path=saved_model_path)
 
-    def IrisSpeciesPredict(self, request, context):        
+    def IrisSpeciesPredict(self, request, context):
         request_dict = MessageToDict(request)
         path_to_model = request_dict.pop('PathToModel')
 
         if os.path.exists(path_to_model): 
             model = load_model(path_to_model)
         else: 
-            raise RuntimeError('Model doe not exist')
+            raise RuntimeError('Model does not exist')
         
         predicted_species = predict(model, request_dict)
-
         return IrisSpeciesPredictionResponse(species=predicted_species)
 def serve():
     server = grpc.server(futures.ThreadPoolExecutor(max_workers=10))

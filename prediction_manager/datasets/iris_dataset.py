@@ -1,14 +1,11 @@
-# from cv2 import imread
-# # from datasets.base_dataset import get_transform
-# from datasets.base_dataset import BaseDataset
-from torchvision import datasets
-import os
-import pandas as pd
-# from skimage import io, transform
 import torch
+import pandas as pd
 from torch.utils.data import Dataset
 
-class TrainIrisDataset(Dataset):
+def iris_mappings():
+    return {'Iris-setosa': 0,'Iris-versicolor': 1,'Iris-virginica': 2}
+
+class IrisDataset(Dataset):
     """Represents an iris dataset.
     
     Input params:
@@ -16,12 +13,7 @@ class TrainIrisDataset(Dataset):
     """
     def __init__(self, csv_file,transform=None):
         self.csv_df = pd.read_csv(csv_file)
-        self.label_mappings = {
-                             'Iris-setosa': 0,
-                             'Iris-versicolor': 1,
-                             'Iris-virginica': 2
-                              }
-        # self.image_folder = datasets.ImageFolder(os.path.join(configuration['dataset_path'], configuration['mode']), transform=transform)
+        self.label_mappings = iris_mappings()
 
     def __getitem__(self, index):
         item =  torch.Tensor(self.csv_df.iloc[index, 1:-1])

@@ -11,14 +11,14 @@ message IrisSpeciesPredictionRequest {
 message IrisSpeciesPredictionResponse {
    string species = 1;
 }
-
 message CreateAndTrainModelRequest {
-    string dataset_path = 1;
-    int32 epochs = 2;
-    map<string, string> optimizer_params = 3;
-    string criterion = 4;
-    map<string, string> model_params = 5;
-    string save_model_at = 6;
+    map<string, string> dataset_params = 1;
+    map<string, string> train_params = 2;
+    map<string, string> test_params = 3;
+    map<string, string> optimizer_params = 4;
+    string criterion = 5;
+    map<string, string> model_params = 6;
+    string save_model_at = 7;
 }
 
 message CreateAndTrainModelResponse{
