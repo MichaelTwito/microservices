@@ -7,6 +7,8 @@ from prediction_manager import train_model,load_model, predict
 from predictions_pb2 import IrisSpeciesPredictionResponse, CreateAndTrainModelResponse
 from predictions_pb2_grpc import PredictionsServicer,add_PredictionsServicer_to_server
 
+max_workers = os.getenv('GRPC_THREAD_POOL_EXECUTOR_MAX_WORKERS')
+grpc_server_port = os.getenv('GRPC_SERVER_PORT')
 
 class Predictions(PredictionsServicer):
     def CreateAndTrainModel(self, params, context):
@@ -28,9 +30,9 @@ class Predictions(PredictionsServicer):
         predicted_species = predict(model, request_dict)
         return IrisSpeciesPredictionResponse(species=predicted_species)
 def serve():
-    server = grpc.server(futures.ThreadPoolExecutor(max_workers=10))
+    server = grpc.server(futures.ThreadPoolExecutor(max_workers=int(max_workers)))
     add_PredictionsServicer_to_server(Predictions(), server)
-    server.add_insecure_port('[::]:50051')
+    server.add_insecure_port('[::]:'+ grpc_server_port)
     server.start()
     server.wait_for_termination()
 
