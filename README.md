@@ -13,3 +13,17 @@
     "save_model_at": "./saved_models/iris/neural_network_model"
 }
 ```
+
+### Run saved model for prediction request
+```
+POST http://localhost:5000/api/predictions/nerual_networks/predict_iris_species
+```
+```json
+{
+"SepalLengthCm": 5.4,
+"SepalWidthCm": 0.2,
+"PetalLengthCm": 3.4,
+"PetalWidthCm": 0.5,
+"PathToModel": "./saved_models/iris/neural_network_model_05_09_2022_14_58_24.pth"
+}
+```
