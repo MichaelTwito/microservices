@@ -46,7 +46,7 @@ services:
     adminer:
       image: adminer
       ports:
-        - '${FORWARD_ADMINER_PORT:-3307}:8080'
+        - '${FORWARD_ADMINER_PORT:-28080}:8080'
       networks:
         - microservices
       depends_on:
