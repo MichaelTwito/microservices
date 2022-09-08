@@ -3,7 +3,7 @@ services:
     dolores:
         image: dolores:latest
         ports: 
-          - 5000:5000
+          - '${FORWARD_DOLORES_PORT:-5000}:5000'
         environment:
              DATABASE_URL: 'mysql+pymysql://root:123456@mysql/dolores'
              APP_SETTINGS: 'config.StagingConfig'
@@ -14,10 +14,11 @@ services:
             - microservices
         depends_on:
             - mysql
+
     prediction_manager:
         image: prediction_manager:latest
         ports: 
-          - 50051:50051
+          - '${FORWARD_PREDICTION_MANAGER_PORT:-50051}:50051'
         environment:
              GRPC_SERVER_PORT: '50051'
              GRPC_THREAD_POOL_EXECUTOR_MAX_WORKERS: '10'
@@ -45,7 +46,7 @@ services:
     adminer:
       image: adminer
       ports:
-        - 28080:8080
+        - '${FORWARD_ADMINER_PORT:-3307}:8080'
       networks:
         - microservices
       depends_on:
