@@ -1,4 +1,4 @@
-### Run Scripts
+# Run Scripts
 ## Local
 Run the apps on local machine, make sure to build venv first
 ```
@@ -9,7 +9,7 @@ Run the apps on local machine, make sure to build venv first
 ./run_docker_compse.sh
 ```
 
-### Deployment Scripts
+# Deployment Scripts
 ## Release to ecr
 Builds the containers according to Dockerfile, then push them into ECR,
 (you can choose to run only one app)
