@@ -6,7 +6,7 @@ def train(model, train_loader,epochs, criterion, optimizer):
             if cuda.is_available():
                 data, label = data.cuda(), label.cuda()
 
-            label = label.squeeze(1)
+            # label = label.squeeze(1)
             optimizer.zero_grad()
             targets = model(data)
             loss = criterion(targets, label)
