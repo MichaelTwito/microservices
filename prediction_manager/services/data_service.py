@@ -1,4 +1,3 @@
-from datasets.iris_dataset import IrisDataset
 from torch.utils.data import DataLoader, random_split
 from .helper import get_dynamically_imported_class, build_class_name
 def get_loader(dataset, params):
