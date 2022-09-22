@@ -11,6 +11,14 @@ message IrisSpeciesPredictionRequest {
 message IrisSpeciesPredictionResponse {
    string species = 1;
 }
+
+message BrainTumorPredictionRequest{
+    string Base64Image = 1;
+    string PathToModel = 2;
+}
+message BrainTumorPredictionResponse {
+    string type = 1;
+}
 message CreateAndTrainModelRequest {
     map<string, string> dataset_params = 1;
     map<string, string> train_params = 2;
@@ -28,5 +36,6 @@ message CreateAndTrainModelResponse{
 
 service Predictions {
     rpc IrisSpeciesPredict (IrisSpeciesPredictionRequest) returns (IrisSpeciesPredictionResponse);
+    rpc BrainTumorPredict (BrainTumorPredictionRequest) returns (BrainTumorPredictionResponse);
     rpc CreateAndTrainModel (CreateAndTrainModelRequest) returns (CreateAndTrainModelResponse);
 }

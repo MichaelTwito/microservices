@@ -19,6 +19,11 @@ class PredictionsStub(object):
                 request_serializer=predictions__pb2.IrisSpeciesPredictionRequest.SerializeToString,
                 response_deserializer=predictions__pb2.IrisSpeciesPredictionResponse.FromString,
                 )
+        self.BrainTumorPredict = channel.unary_unary(
+                '/Predictions/BrainTumorPredict',
+                request_serializer=predictions__pb2.BrainTumorPredictionRequest.SerializeToString,
+                response_deserializer=predictions__pb2.BrainTumorPredictionResponse.FromString,
+                )
         self.CreateAndTrainModel = channel.unary_unary(
                 '/Predictions/CreateAndTrainModel',
                 request_serializer=predictions__pb2.CreateAndTrainModelRequest.SerializeToString,
@@ -30,6 +35,12 @@ class PredictionsServicer(object):
     """Missing associated documentation comment in .proto file."""
 
     def IrisSpeciesPredict(self, request, context):
+        """Missing associated documentation comment in .proto file."""
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
+
+    def BrainTumorPredict(self, request, context):
         """Missing associated documentation comment in .proto file."""
         context.set_code(grpc.StatusCode.UNIMPLEMENTED)
         context.set_details('Method not implemented!')
@@ -48,6 +59,11 @@ def add_PredictionsServicer_to_server(servicer, server):
                     servicer.IrisSpeciesPredict,
                     request_deserializer=predictions__pb2.IrisSpeciesPredictionRequest.FromString,
                     response_serializer=predictions__pb2.IrisSpeciesPredictionResponse.SerializeToString,
+            ),
+            'BrainTumorPredict': grpc.unary_unary_rpc_method_handler(
+                    servicer.BrainTumorPredict,
+                    request_deserializer=predictions__pb2.BrainTumorPredictionRequest.FromString,
+                    response_serializer=predictions__pb2.BrainTumorPredictionResponse.SerializeToString,
             ),
             'CreateAndTrainModel': grpc.unary_unary_rpc_method_handler(
                     servicer.CreateAndTrainModel,
@@ -78,6 +94,23 @@ class Predictions(object):
         return grpc.experimental.unary_unary(request, target, '/Predictions/IrisSpeciesPredict',
             predictions__pb2.IrisSpeciesPredictionRequest.SerializeToString,
             predictions__pb2.IrisSpeciesPredictionResponse.FromString,
+            options, channel_credentials,
+            insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
+
+    @staticmethod
+    def BrainTumorPredict(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
+        return grpc.experimental.unary_unary(request, target, '/Predictions/BrainTumorPredict',
+            predictions__pb2.BrainTumorPredictionRequest.SerializeToString,
+            predictions__pb2.BrainTumorPredictionResponse.FromString,
             options, channel_credentials,
             insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
 

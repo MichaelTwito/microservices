@@ -4,7 +4,7 @@ import logging
 from concurrent import futures
 from google.protobuf.json_format import MessageToDict
 from prediction_manager import train_model,load_model, predict
-from predictions_pb2 import IrisSpeciesPredictionResponse, CreateAndTrainModelResponse
+from predictions_pb2 import IrisSpeciesPredictionResponse, BrainTumorPredictionResponse,CreateAndTrainModelResponse
 from predictions_pb2_grpc import PredictionsServicer,add_PredictionsServicer_to_server
 
 max_workers = int(os.getenv('GRPC_THREAD_POOL_EXECUTOR_MAX_WORKERS'))
@@ -26,8 +26,21 @@ class Predictions(PredictionsServicer):
         else: 
             raise RuntimeError('Model does not exist')
         
-        predicted_species = predict(model, request_dict)
+        predicted_species = predict(model, request_dict, "iris")
         return IrisSpeciesPredictionResponse(species=predicted_species)
+
+    def BrainTumorPredict(self, request, context):
+        request_dict = MessageToDict(request)
+        path_to_model = request_dict.pop('PathToModel')
+
+        if os.path.exists(path_to_model): 
+            model = load_model(path_to_model)
+        else: 
+            raise RuntimeError('Model does not exist')
+        
+        predicted_type = predict(model, request_dict, "brain_tumor")
+        return BrainTumorPredictionResponse(type=predicted_type)
+
 def serve():
     server = grpc.server(futures.ThreadPoolExecutor(max_workers=max_workers))
     add_PredictionsServicer_to_server(Predictions(), server)
