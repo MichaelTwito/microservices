@@ -1,6 +1,4 @@
-
 import importlib
-
 def get_dynamically_imported_class(from_module, class_name, package=None):
     module = importlib.import_module(from_module, package=package)
     return getattr(module, class_name) 

@@ -2,6 +2,10 @@ import torch
 from torch.utils.data import Dataset
 from torchvision import datasets, transforms
 
+def bt_mappings(): 
+    return {'glioma': 0,'meningioma': 1,'no_tumor': 2, 'pituitary': 3}
+
+
 def get_train_transform(image_size):
     return transforms.Compose([
            transforms.Resize((image_size, image_size)),

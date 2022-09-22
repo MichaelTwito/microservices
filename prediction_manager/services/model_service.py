@@ -2,14 +2,12 @@ import torch
 from .helper import get_dynamically_imported_class, build_class_name
 
 def create_model(model_name):
-    try: 
-       ModelClass = get_dynamically_imported_class('torchvision.models', model_name)
-    except AttributeError:
-        model_class_name = build_class_name(model_name)
-        ModelClass = get_dynamically_imported_class(\
-                 ('models.' + model_name), model_class_name, 'prediction_manager')
-    return ModelClass(pretrained=True).to(get_device())
-        
+    model_class_name = build_class_name(model_name)
+    ModelClass = get_dynamically_imported_class(\
+             ('models.' + model_name), model_class_name, 'prediction_manager')     
+    return ModelClass(pretrained=True).to(get_device()) if model_class_name == "BrainTumorModel" else ModelClass().to(get_device())
+    
+
 def get_criterion(criterion):
     return get_dynamically_imported_class('torch.nn', criterion)
 

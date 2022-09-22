@@ -1,5 +1,10 @@
 from torch import nn
-import torchvision.models as models
-class BrainTumorModel(models.efficientnet_b0):
-    def __init__(self):
-        super().__init__().classifier[1] = nn.Linear(in_features=1280, out_features=10)
+from torchvision.models import efficientnet_b0
+class BrainTumorModel(nn.Module):
+    def __init__(self, pretrained=None):
+        super().__init__()
+        self.model = efficientnet_b0(pretrained)
+    
+    def forward(self, data):
+        return self.model.forward(data)
+

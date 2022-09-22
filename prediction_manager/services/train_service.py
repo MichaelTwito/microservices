@@ -7,8 +7,8 @@ def train(model, train_loader,epochs, criterion, optimizer):
         for data, label in train_loader:
             if cuda.is_available():
                 data, label = data.cuda(), label.cuda()
+            counter = counter + 1
             print(counter)
-            counter = counter +1
             # label = label.squeeze(1)
             optimizer.zero_grad()
             targets = model(data)

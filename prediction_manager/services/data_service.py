@@ -23,8 +23,7 @@ def prepare_data(dataset_params: dict, train_params: dict, test_params:dict):
                                 len(DatasetClass), float(dataset_params['train_test_split_ratio']))
     train_data,\
          test_data = random_split(DatasetClass,[train_dataset_size,test_dataset_size])
-    print(len(train_data))
-    print(len(test_data))
+
     return get_loader(train_data, train_params),\
            get_loader(test_data,test_params)
 
