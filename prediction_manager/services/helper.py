@@ -9,3 +9,5 @@ def build_class_name(model_name):
            (map(lambda x: x.capitalize(),\
            model_name.split('_')))))
 
+def string_to_bool(string):
+    return string == 'True'

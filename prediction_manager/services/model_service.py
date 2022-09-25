@@ -1,11 +1,14 @@
 import torch
-from .helper import get_dynamically_imported_class, build_class_name
-
-def create_model(model_name):
+from .helper import get_dynamically_imported_class, build_class_name, string_to_bool
+def create_model(model_params):
+    model_name = model_params['name']
+    pretrained = string_to_bool(model_params['pretrained'])
     model_class_name = build_class_name(model_name)
     ModelClass = get_dynamically_imported_class(\
              ('models.' + model_name), model_class_name, 'prediction_manager')     
-    return ModelClass(pretrained=True).to(get_device()) if model_class_name == "BrainTumorModel" else ModelClass().to(get_device())
+    return ModelClass(pretrained=pretrained).to(get_device())\
+           if pretrained \
+           else ModelClass().to(get_device())
     
 
 def get_criterion(criterion):

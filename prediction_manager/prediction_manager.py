@@ -7,7 +7,7 @@ from services.prediction_service import predict_species_by_properties, predict_t
 from services.model_service import create_model, get_criterion, get_optimizer, load_model as load_model_service
 
 def train_model(dataset_params, train_params, test_params, optimizer_params, criterion, model_params, save_trained_model_at):
-    Model = create_model(model_params['name'])
+    Model = create_model(model_params)
     Criterion = get_criterion(criterion)
     Optimizer = get_optimizer(optimizer_params['algorithm'])
 
