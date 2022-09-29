@@ -27,3 +27,15 @@ POST http://localhost:5000/api/predictions/nerual_networks/predict_iris_species
 "PathToModel": "./saved_models/iris/neural_network_model_05_09_2022_14_58_24.pth"
 }
 ```
+
+
+```
+POST http://localhost:5000/api/predictions/nerual_networks/predict_brain_tumor_type
+```
+```json
+{
+{
+"Base64Image": "<IMAGE_IN_BASE64_CODING>",
+"PathToModel": "./saved_models/brain_tumor/brain_tumor_model_12_09_2022_08_56_38.pth"
+}
+```
